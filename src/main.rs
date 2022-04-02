@@ -8,14 +8,23 @@ use crate::domain::models::video::Video;
 mod components;
 mod domain;
 
+// #[function_component(App)]で宣言された関数コンポーネントを定義する。
 #[function_component(App)]
 fn app() -> Html {
+    // use_stateは、状態を保持するためのHookである。
     let videos = use_state(|| vec![]);
     {
+        // cloneは、Hookの返り値をコピーするためのメソッドです。
         let videos = videos.clone();
+        // use_effectは、Hookの返り値を変更するためのメソッド。
+        // さらにこれは依存元が変更されたかどうか関係なく値を更新する。
+        // ただ、認識さセルにはstructに**PartialEq**が必要だ。
         use_effect_with_deps(
+            // moveクロージャーがいまいちよくわからん。
             move |_| {
+                // state(videos)を変数にコピー。
                 let videos = videos.clone();
+                // rest apiを叩いて、データを取得する。
                 wasm_bindgen_futures::spawn_local(async move {
                     let fetched_videos: Vec<Video> = Request::get("/tutorial/data.json")
                         .send()
@@ -36,6 +45,7 @@ fn app() -> Html {
 
     let on_video_select = {
         let selected_video = selected_video.clone();
+        // 何のためのコールバック？
         Callback::from(move |video: Video| selected_video.set(Some(video)))
     };
 

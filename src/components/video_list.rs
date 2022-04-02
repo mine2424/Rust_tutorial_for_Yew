@@ -9,6 +9,7 @@ pub struct VideoListProps {
 }
 
 #[function_component(VideoList)]
+// なぜ、&VideoListPropsは & が必要なのか？
 pub fn video_list(VideoListProps { videos, on_click }: &VideoListProps) -> Html {
     videos
         .iter()

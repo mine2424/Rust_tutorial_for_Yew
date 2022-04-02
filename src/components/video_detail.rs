@@ -8,6 +8,7 @@ pub struct VideosDetailProps {
 }
 
 #[function_component(VideoDetail)]
+// なぜ、&VideosDetailPropsは & が必要なのか？
 pub fn video_detail(VideosDetailProps { video }: &VideosDetailProps) -> Html {
     html! {
         <div>
