@@ -21,6 +21,7 @@ fn app() -> Html {
         // ただ、認識さセルにはstructに**PartialEq**が必要だ。
         use_effect_with_deps(
             // moveクロージャーがいまいちよくわからん。
+            // クロージャー -> 無名関数
             move |_| {
                 // state(videos)を変数にコピー。
                 let videos = videos.clone();
